@@ -141,7 +141,7 @@ const PORTFOLIO = {
     formspree: "https://formspree.io/f/xeaaakwp",
     email: "mangantiardy6@example.com",
     linkedin: "https://www.linkedin.com/in/ardymanganti/",
-    github: "https://github.com/your-handle",
+    github: "https://github.com/KHONSHUS",
     resume: "assets/Ardy Manganti - CV.pdf"
   },
 
