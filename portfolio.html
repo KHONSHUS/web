@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Title and description are filled from data.js (site) -->
+  <title>Portfolio</title>
+  <meta name="description" content="">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        if (t) document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="preload-locked">
+
+  <!-- Loading screen -->
+  <aside id="preloader" class="preloader" role="dialog" aria-modal="true" aria-label="Loading portfolio">
+    <div class="preloader-card">
+      <div id="preload-streams" class="preload-streams" aria-hidden="true">
+        <div class="stream-col" data-col="0" data-dir="up"></div>
+        <div class="stream-col" data-col="1" data-dir="down"></div>
+        <div class="stream-col" data-col="2" data-dir="up"></div>
+        <div class="stream-col" data-col="3" data-dir="down"></div>
+        <div class="stream-col" data-col="4" data-dir="up"></div>
+      </div>
+
+      <div class="preload-code-box">
+        <pre class="preload-code"><code><span class="syn-bracket">&lt;!</span><span class="syn-kw">DOCTYPE</span> <span class="syn-doctype-html">html</span><span class="syn-bracket">&gt;</span>
+<span class="syn-bracket">&lt;</span><span class="syn-tag">html</span><span class="syn-bracket">&gt;</span>
+       <span class="syn-bracket">&lt;</span><span class="syn-tag">head</span><span class="syn-bracket">&gt;</span>
+              <span class="syn-bracket">&lt;</span><span class="syn-tag">title</span><span class="syn-bracket">&gt;</span><span class="syn-txt" data-text="preloader.pageTitle"></span><span class="syn-bracket">&lt;/</span><span class="syn-tag">title</span><span class="syn-bracket">&gt;</span>
+       <span class="syn-bracket">&lt;/</span><span class="syn-tag">head</span><span class="syn-bracket">&gt;</span>
+       <span class="syn-bracket">&lt;</span><span class="syn-tag">body</span><span class="syn-bracket">&gt;</span>
+              <span class="syn-bracket">&lt;</span><span class="syn-tag">h1</span><span class="syn-bracket">&gt;</span><span id="preload-typed-name" class="syn-name"></span><span class="syn-cursor" aria-hidden="true">|</span><span class="syn-bracket">&lt;/</span><span class="syn-tag">h1</span><span class="syn-bracket">&gt;</span>
+       <span class="syn-bracket">&lt;/</span><span class="syn-tag">body</span><span class="syn-bracket">&gt;</span>
+<span class="syn-bracket">&lt;/</span><span class="syn-tag">html</span><span class="syn-bracket">&gt;</span></code></pre>
+      </div>
+    </div>
+
+    <div id="preload-hairline" class="preload-hairline" aria-hidden="true"></div>
+    <button id="preload-skip" class="preload-skip mono" type="button" aria-label="Skip intro animation" data-text="ui.preloaderSkip"></button>
+  </aside>
+
+  <!-- Code character background -->
+  <canvas id="grid" class="grid-bg" aria-hidden="true"></canvas>
+
+  <a class="skip-link" href="#main" data-text="ui.skipToContent"></a>
+
+  <header id="site-header" class="site-header">
+    <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" data-text="site.brand"></a>
+      <nav id="nav" class="nav mono" aria-label="Main">
+        <ul id="nav-list"></ul>
+      </nav>
+      <div class="header-actions mono">
+        <button id="theme-toggle" class="text-btn" type="button" aria-label="Switch to dark theme"></button>
+        <button id="menu-toggle" class="text-btn menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open menu"></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section id="top" class="hero wrap">
+      <div class="hero-top mono">
+        <span data-text="hero.topLeft"></span>
+        <span data-text="hero.topRight"></span>
+      </div>
+
+      <div class="hero-main">
+        <div class="hero-copy">
+          <p class="hero-role mono reveal" data-text="hero.role"></p>
+          <h1 class="reveal" data-text="hero.headline"></h1>
+          <p class="hero-pitch reveal" data-text="hero.pitch"></p>
+          <div class="hero-cta mono reveal">
+            <a class="btn btn-solid" href="#projects" data-text="hero.ctaProjects"></a>
+            <a class="btn" id="hero-resume" href="#" download data-text="hero.ctaResume"></a>
+          </div>
+        </div>
+
+        <!-- Swipeable cards (filled from data.js: heroImages) -->
+        <div class="hero-visual reveal">
+          <div id="stack" class="stack" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Project images. Swipe, drag, or use the arrow buttons."></div>
+
+          <div class="carousel-ui">
+            <button id="prev-btn" class="car-btn" type="button" aria-label="Previous project">
+              <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M15 4L7 12l8 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p id="slide-info" class="carousel-info" aria-live="polite"></p>
+            <button id="next-btn" class="car-btn" type="button" aria-label="Next project">
+              <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M9 4l8 8-8 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-bottom mono">
+        <span data-text="hero.scrollLeft"></span>
+        <span data-text="hero.scrollRight"></span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about-section">
+      <div id="about-cols-top" class="about-cols-edge about-cols-top" aria-hidden="true"></div>
+
+      <div class="wrap section">
+        <div class="section-head">
+          <h2 data-text="about.heading"></h2>
+          <span class="mono" data-text="about.number"></span>
+        </div>
+
+        <div class="about-grid">
+          <figure>
+            <div id="about-photo"></div>
+            <figcaption class="mono" data-text="about.caption"></figcaption>
+          </figure>
+
+          <div>
+            <p class="lede" data-text="about.lede"></p>
+            <p class="about-body" data-text="about.body"></p>
+            <div class="about-cols" id="about-cols"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="about-cols-bottom" class="about-cols-edge about-cols-bottom" aria-hidden="true"></div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="projects-section">
+      <div class="wrap section">
+        <div class="section-head">
+          <h2 data-text="projects.heading"></h2>
+          <span class="mono" data-text="projects.number"></span>
+        </div>
+        <div class="projects" id="projects-list"></div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="skills-section">
+      <div class="wrap section">
+        <div class="skills-title-area">
+          <div class="skills-title-row">
+            <h2 class="skills-giant-title" data-text="skills.heading"></h2>
+            <span class="skills-badge mono" data-text="skills.number"></span>
+          </div>
+        </div>
+        <div class="skills-panel-full">
+          <div class="skills" id="skills-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="experience-section">
+      <div class="wrap section">
+        <div class="section-head">
+          <h2 data-text="experience.heading"></h2>
+          <span class="mono" data-text="experience.number"></span>
+        </div>
+        <ol class="exp" id="exp-list"></ol>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS (cards are built from data.js: achievements) -->
+    <section id="achievements" class="achievements-section">
+      <div class="wrap section">
+        <div class="section-head">
+          <h2 data-text="achievements.heading"></h2>
+          <span class="mono" data-text="achievements.number"></span>
+        </div>
+      </div>
+
+      <div class="achv-marquee-wrap" aria-label="Certificates and achievements carousel">
+        <div class="achv-marquee">
+          <div class="achv-track" id="achv-track"></div>
+        </div>
+      </div>
+
+      <div id="cert-lightbox" class="cert-lightbox" role="dialog" aria-modal="true" aria-label="Certificate preview" hidden>
+        <div class="cert-lightbox-backdrop" id="cert-lightbox-backdrop"></div>
+        <div class="cert-lightbox-panel">
+          <button id="cert-lightbox-close" class="cert-lightbox-close" type="button" aria-label="Close certificate preview">&times;</button>
+          <div class="cert-lightbox-body" id="cert-lightbox-body"></div>
+          <div class="cert-lightbox-foot mono">
+            <div>
+              <h3 id="cert-lightbox-title" class="cert-lightbox-title"></h3>
+              <p id="cert-lightbox-issuer" class="cert-lightbox-issuer"></p>
+            </div>
+            <span class="cert-lightbox-esc" data-text="ui.lightboxHint"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+      <div class="wrap section">
+        <div class="section-head">
+          <h2 data-text="contact.heading"></h2>
+          <span class="mono" data-text="contact.number"></span>
+        </div>
+
+        <div class="contact-grid reveal-on-scroll">
+          <div>
+            <p class="contact-lede" data-text="contact.lede"></p>
+            <ul class="contact-links" id="contact-links">
+              <li class="contact-email-row">
+                <a href="#" class="contact-email-link"></a>
+                <button type="button" class="email-copy-btn mono" id="email-copy-btn" aria-label="Copy email address to clipboard">
+                  <span class="copy-label" data-text="ui.copy"></span>
+                  <svg class="copy-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                </button>
+                <span id="copy-toast" class="copy-toast mono" role="status" aria-live="polite" data-text="ui.copied"></span>
+              </li>
+            </ul>
+          </div>
+
+          <form id="contact-form" novalidate>
+            <div class="field">
+              <label class="mono" for="name" data-text="ui.name"></label>
+              <input id="name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label class="mono" for="email" data-text="ui.email"></label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label class="mono" for="message" data-text="ui.message"></label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+            <button class="btn btn-solid mono" type="submit" data-text="ui.send"></button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer mono">
+    <div class="wrap footer-inner">
+      <p>&copy; <span id="year"></span> <span data-text="footer.name"></span></p>
+      <a href="#top" class="back-to-top" id="back-to-top-btn" aria-label="Back to top">
+        <span data-text="ui.backToTop"></span>
+        <span class="top-arrow" aria-hidden="true">↑</span>
+      </a>
+    </div>
+  </footer>
+
+  <div id="incoming-toast" class="incoming-toast mono" role="status" aria-live="polite">
+    <span class="incoming-dot" aria-hidden="true"></span>
+    <span id="incoming-toast-text" data-text="ui.comingSoon"></span>
+  </div>
+
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
