@@ -40,15 +40,15 @@ const PORTFOLIO = {
 
   // Swipeable cards in the hero (use 3 to 5)
   heroImages: [
-    { title: "Attendly", image: "./assets/attendly.jpg" },
-    { title: "Manila City Library", image: "./assets/mcl.jpg" },
-    { title: "DSWD", image: "./assets/4Ps.png" },
+    { title: "Attendly", image: "./attendly.jpg" },
+    { title: "Manila City Library", image: "./mcl.jpg" },
+    { title: "DSWD", image: "./4Ps.png" },
   ],
 
   about: {
     heading: "About",
     number: "§ 01",
-    photo: "./assets/PFP.jpg",
+    photo: "./PFP.jpg",
     photoAlt: "Photo of Ardy",
     caption: "Ardy, 2026",
     lede: "A developer who enjoys coding and turns small, everyday problems into simple, usable apps.",
@@ -69,7 +69,7 @@ const PORTFOLIO = {
         description: "An attendance app where students and teachers sign in with their own role. It replaces paper attendance sheets with a quick tap.",
         role: "Developer",
         stack: "Flutter, Dart",
-        image: "./assets/attendly.jpg",
+        image: "./attendly.jpg",
         github: "",
         demo: ""
       },
@@ -78,7 +78,7 @@ const PORTFOLIO = {
         description: "A barcode-based library system where borrowers and staff scan their IDs to borrow, return, and log attendance. It replaces paper logbooks with a quick scan.",
         role: "Developer",
         stack: "HTML, CSS, JAVSCRIPT, PHP, PYTHON",
-        image: "./assets/mcl.jpg",
+        image: "./mcl.jpg",
         github: "",
         demo: ""
       },
@@ -87,7 +87,7 @@ const PORTFOLIO = {
         description: "A dashboard for DSWD built on the Frappe framework during my OJT at Xurpas. I built the front-end from the team's UI design using HTML, CSS, and JavaScript.",
         role: "Front End",
         stack: "HTML, CSS, JAVSCRIPT",
-        image: "./assets/4Ps.png",
+        image: "./4Ps.png",
         github: "",
         demo: ""
       }
@@ -128,9 +128,9 @@ const PORTFOLIO = {
     number: "§ 05",
     speed: 60,
     items: [
-      { title: "Hour of code session", issuer: "SmartCT / ", year: "2025", image: "assets/ARA.jpg" },
-      { title: "Ethical Hacking and Responsible Disclosure", issuer: "West Visayas State University", year: "2025", image: "assets/WVSU.jpg" },
-      { title: "Company Proposal and System Showcase", issuer: "PHINMA - Saint Jude College Manila", year: "2024", image: "assets/CPSS.jpg" }
+      { title: "Hour of code session", issuer: "SmartCT / ", year: "2025", image: "./ARA.jpg" },
+      { title: "Ethical Hacking and Responsible Disclosure", issuer: "West Visayas State University", year: "2025", image: "./WVSU.jpg" },
+      { title: "Company Proposal and System Showcase", issuer: "PHINMA - Saint Jude College Manila", year: "2024", image: "./CPSS.jpg" }
     ]
   },
 
