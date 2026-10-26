@@ -139,9 +139,9 @@ export const PORTFOLIO = {
     number: "§ 06",
     lede: "Want to work together? Send me a message.",
     formspree: "https://formspree.io/f/xeaaakwp",
-    email: "mangantiardy6@example.com",
+    email: "mangantiardy6@gmail.com",
     linkedin: "https://www.linkedin.com/in/ardymanganti/",
-    github: "https://github.com/your-handle",
+    github: "https://github.com/KHONSHUS",
     resume: "/assets/Ardy Manganti - CV.pdf"
   },
 
