@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PORTFOLIO from '../data.js';
 
 const NAV_SHOW_AFTER = 150;
@@ -9,6 +9,7 @@ export default function Header({ currentTheme, onToggleTheme }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [themePop, setThemePop] = useState(false);
+  const headerRef = useRef(null);
 
   const { nav, site, ui } = PORTFOLIO;
 
@@ -54,14 +55,25 @@ export default function Header({ currentTheme, onToggleTheme }) {
     return () => observer.disconnect();
   }, [nav]);
 
-  // Close menu on Escape key
+  // Close menu on Escape key or click outside
   useEffect(() => {
     const handleKey = (e) => {
       if (e.key === "Escape") setMenuOpen(false);
     };
+
+    const handleClickOutside = (e) => {
+      if (menuOpen && headerRef.current && !headerRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+
     document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
-  }, []);
+    document.addEventListener("pointerdown", handleClickOutside);
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.removeEventListener("pointerdown", handleClickOutside);
+    };
+  }, [menuOpen]);
 
   const handleThemeClick = () => {
     onToggleTheme();
@@ -73,7 +85,7 @@ export default function Header({ currentTheme, onToggleTheme }) {
     <>
       <a className="skip-link" href="#main">{ui.skipToContent}</a>
 
-      <header id="site-header" className={`site-header ${visible ? "visible" : ""}`}>
+      <header id="site-header" ref={headerRef} className={`site-header ${visible ? "visible" : ""}`}>
         <div
           id="scroll-progress"
           className="scroll-progress"

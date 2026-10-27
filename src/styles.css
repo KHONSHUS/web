@@ -331,13 +331,15 @@
     .carousel-ui {
       display: flex;
       align-items: center;
-      gap: 5rem;
+      justify-content: center;
+      gap: clamp(1.25rem, 5vw, 5rem);
+      width: 100%;
     }
     .carousel-info {
       margin: 0;
-      min-width: 9.5rem;
       text-align: center;
-      font-size: 1rem;
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+      white-space: nowrap;
     }
 
     .car-btn {
@@ -1427,6 +1429,7 @@
     .field textarea {
       width: 100%;
       font: inherit;
+      font-size: 1rem; /* Prevents auto-zoom on mobile iOS devices */
       color: var(--ink);
       background: transparent;
       border: 0;
@@ -1471,7 +1474,9 @@
                   transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
                   visibility 0.32s;
       box-shadow: 0 8px 28px color-mix(in srgb, var(--ink) 28%, transparent);
-      white-space: nowrap;
+      max-width: min(440px, calc(100vw - 2rem));
+      box-sizing: border-box;
+      text-align: center;
     }
     .incoming-toast.is-visible {
       opacity: 1;
@@ -1579,47 +1584,407 @@
     main,
     .site-footer { position: relative; z-index: 1; }
 
-    /* ---------- Responsive ---------- */
-    @media (max-width: 860px) {
-      .menu-btn { display: inline-block; }
+    /* ---------- Responsive Overhaul (Phone, Tablet & Small Devices) ---------- */
+    
+    /* 1. Large Tablets & Small Laptops (up to 1024px) */
+    @media (max-width: 1024px) {
+      .nav ul { gap: clamp(1rem, 2.2vw, 1.85rem); }
+      .hero-main { gap: 2.5rem; }
+      .skills { gap: 1.5rem; }
+    }
+
+    /* 2. Tablets in Portrait & Medium Screens (up to 920px) */
+    @media (max-width: 920px) {
+      .menu-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        min-width: 44px;
+        border-radius: 4px;
+      }
 
       .nav {
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: color-mix(in srgb, var(--paper) 94%, transparent);
+        background: color-mix(in srgb, var(--paper) 92%, transparent);
+        -webkit-backdrop-filter: blur(18px);
+        backdrop-filter: blur(18px);
         border-bottom: 1px solid var(--line);
-        padding: 0.5rem var(--pad) 1.25rem;
+        padding: 0.75rem var(--pad) 1.5rem;
+        box-shadow: 0 16px 36px color-mix(in srgb, var(--ink) 12%, transparent);
         display: none;
+        transform-origin: top center;
       }
-      .nav.open { display: block; }
-      .nav ul { flex-direction: column; gap: 0.25rem; }
-      .nav a { display: inline-block; padding: 0.55rem 0; }
+      .nav.open {
+        display: block;
+        animation: navSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      .nav ul {
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+      .nav a {
+        display: block;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+        border-radius: 6px;
+      }
+      .nav a:active {
+        background: color-mix(in srgb, var(--ink) 8%, transparent);
+      }
 
-      .hero-main { grid-template-columns: 1fr; padding: 2.5rem 0; gap: 3rem; }
-      .hero h1 { max-width: 16ch; }
+      .hero-main {
+        grid-template-columns: 1fr;
+        padding: 2.25rem 0;
+        gap: 2.5rem;
+      }
+      .hero h1 {
+        max-width: 16ch;
+      }
 
       .about-grid,
-      .contact-grid { grid-template-columns: 1fr; }
-      .about-cols-edge { height: 120px; }
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .about-cols-edge {
+        height: 100px;
+      }
+      .photo {
+        max-width: 320px;
+        margin: 0 auto;
+      }
 
       .project,
-      .project:nth-child(even) { grid-template-columns: 1fr; }
-      .project:nth-child(even) > figure { order: 0; }
+      .project:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 2.75rem 0;
+      }
+      .project:nth-child(even) > figure {
+        order: 0;
+      }
 
-      .photo { max-width: 360px; }
+      .skills {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
 
-      .skills { grid-template-columns: 1fr; }
+      .exp > li {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+        padding: 1.5rem;
+      }
 
-      .exp > li { grid-template-columns: 1fr; gap: 1rem; }
-
-      .section { padding-top: 4rem; padding-bottom: 3.5rem; }
-      .section-head { margin-bottom: 3rem; }
+      .section {
+        padding-top: 4.25rem;
+        padding-bottom: 3.75rem;
+      }
+      .section-head {
+        margin-bottom: 3rem;
+      }
     }
 
+    @keyframes navSlideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 3. Small Tablets & Phablets (up to 680px) */
+    @media (max-width: 680px) {
+      .skills {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .about-cols {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .achv-card {
+        width: clamp(280px, 80vw, 360px);
+      }
+    }
+
+    /* 4. Phones & Small Mobile Devices (up to 520px) */
     @media (max-width: 520px) {
-      .about-cols { grid-template-columns: 1fr; gap: 1.5rem; }
+      :root {
+        --pad: clamp(1rem, 4.5vw, 1.25rem);
+        --header-h: 3.4rem;
+      }
+
+      /* Hero section mobile adjustments */
+      .hero {
+        min-height: auto;
+        padding-top: 1rem;
+        padding-bottom: 1.5rem;
+      }
+      .hero-top,
+      .hero-bottom {
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+      }
+      .hero h1 {
+        font-size: clamp(1.85rem, 8vw, 2.5rem);
+        line-height: 1.05;
+        max-width: 100%;
+        margin-bottom: 1.25rem;
+      }
+      .hero-role {
+        margin-bottom: 1rem;
+        font-size: 0.68rem;
+      }
+      .hero-pitch {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        max-width: 100%;
+        margin-bottom: 1.5rem;
+      }
+      .hero-cta {
+        width: 100%;
+        flex-direction: column;
+        gap: 0.65rem;
+      }
+      .hero-cta .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.85rem 1.25rem;
+        font-size: 0.72rem;
+      }
+      .hero-visual {
+        gap: 1.25rem;
+        width: 100%;
+      }
+      .stack {
+        width: min(290px, calc(100% - 2rem));
+        margin: 0.75rem auto 0.25rem;
+      }
+      .carousel-ui {
+        gap: clamp(0.75rem, 5vw, 2rem);
+        width: 100%;
+        justify-content: center;
+      }
+      .carousel-info {
+        min-width: 0;
+        font-size: 0.82rem;
+      }
+      .car-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      /* Section headings & padding */
+      .section {
+        padding-top: 3.25rem;
+        padding-bottom: 2.75rem;
+      }
+      .section-head {
+        margin-bottom: 2rem;
+        align-items: center;
+      }
+      .section-head h2 {
+        font-size: clamp(2rem, 8.5vw, 2.75rem);
+      }
+      .section-head::after {
+        left: 0;
+        width: 100%;
+      }
+
+      /* About Section */
+      .about-cols-edge {
+        height: 70px;
+      }
+      .about-section .section-head h2 {
+        transform: translateX(calc((1 - var(--ap, 1)) * -24px));
+      }
+      .about-grid {
+        gap: 2rem;
+        transform: translateY(calc((1 - var(--ap, 1)) * 28px));
+      }
+      .photo {
+        max-width: 270px;
+        border-radius: 12px;
+      }
+      .lede {
+        font-size: clamp(1.25rem, 4.5vw, 1.55rem);
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+      }
+      .about-body {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        margin-bottom: 2rem;
+      }
+      .about-cols {
+        padding-top: 1.5rem;
+        gap: 1.25rem;
+      }
+
+      /* Projects Section */
+      .project,
+      .project:nth-child(even) {
+        padding: 2.25rem 0;
+        gap: 1.5rem;
+      }
+      .project-shot {
+        border-radius: 12px;
+      }
+      .project-body h3 {
+        font-size: clamp(1.45rem, 5.5vw, 1.85rem);
+        margin-bottom: 0.85rem;
+      }
+      .project-body p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+      .meta {
+        margin: 1.25rem 0;
+      }
+      .meta div {
+        grid-template-columns: 4.5rem 1fr;
+        gap: 0.65rem;
+        font-size: 0.92rem;
+        padding: 0.65rem 0;
+      }
+      .links {
+        gap: 1.25rem;
+        flex-wrap: wrap;
+      }
+      .links a {
+        font-size: 0.75rem;
+      }
+
+      /* Skills Section */
+      .skills-title-area {
+        padding-bottom: 1rem;
+      }
+      .skills-giant-title {
+        font-size: clamp(2.4rem, 12.5vw, 3.8rem);
+        transform: scale(calc(1 - var(--sp, 0) * 0.22));
+      }
+      .skills-col {
+        padding: 1.25rem;
+        border-radius: 14px;
+      }
+      .skills li {
+        font-size: 0.92rem;
+        padding: 0.7rem 0.4rem 0.7rem 1.4rem;
+      }
+
+      /* Experience Section */
+      .exp > li {
+        padding: 1.25rem;
+        border-radius: 14px;
+        gap: 0.65rem;
+      }
+      .exp h3 {
+        font-size: 1.35rem;
+        margin-bottom: 0.4rem;
+      }
+      .exp p {
+        font-size: 0.92rem;
+        line-height: 1.6;
+      }
+
+      /* Achievements & Lightbox */
+      .achv-marquee-wrap {
+        padding-bottom: 2rem;
+      }
+      .achv-group {
+        gap: 1rem;
+        padding-right: 1rem;
+      }
+      .achv-card {
+        width: clamp(260px, 80vw, 310px);
+        border-radius: 14px;
+      }
+      .achv-card-inner {
+        padding: 1rem;
+      }
+      .achv-card-title {
+        font-size: 1.1rem;
+      }
+      .cert-lightbox {
+        padding: 0.75rem;
+      }
+      .cert-lightbox-panel {
+        width: 100%;
+        border-radius: 14px;
+      }
+      .cert-lightbox-body {
+        max-height: 52vh;
+      }
+      .cert-lightbox-close {
+        width: 36px;
+        height: 36px;
+        top: 0.65rem;
+        right: 0.65rem;
+        font-size: 1.35rem;
+      }
+      .cert-lightbox-foot {
+        padding: 0.85rem 1rem;
+        gap: 0.5rem;
+      }
+      .cert-lightbox-title {
+        font-size: 0.98rem;
+      }
+      .cert-lightbox-issuer {
+        font-size: 0.68rem;
+      }
+      .cert-lightbox-esc {
+        display: none;
+      }
+
+      /* Contact Section */
+      .contact-lede {
+        font-size: 1.35rem;
+        margin-bottom: 1.5rem;
+        max-width: 100%;
+      }
+      .contact-email-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .contact-email-link {
+        word-break: break-all;
+        font-size: 0.95rem;
+      }
+      .field {
+        margin-bottom: 1.25rem;
+      }
+      .field input,
+      .field textarea {
+        font-size: 1rem; /* Prevents iOS auto-zoom on input focus */
+        padding: 0.5rem 0;
+      }
+      .contact-section .btn-solid {
+        width: 100%;
+        text-align: center;
+        padding: 0.85rem 1.25rem;
+      }
+
+      /* Footer */
+      .site-footer {
+        padding-top: 1.5rem;
+        padding-bottom: 2.5rem;
+      }
+      .site-footer .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      /* Toast Notification */
+      .incoming-toast {
+        bottom: 1.25rem;
+        padding: 0.55rem 1rem;
+        font-size: 0.68rem;
+        border-radius: 12px;
+        justify-content: center;
+      }
     }
 
     /* ---------- Preloader Screen ---------- */
@@ -1859,26 +2224,42 @@
     }
 
     @media (max-width: 768px) {
+      .preloader {
+        padding: 1.25rem;
+      }
       .preloader-card {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1.25rem;
         align-items: center;
+        width: 100%;
       }
       .preload-streams {
-        height: 200px;
-        gap: 1.25rem;
+        height: clamp(120px, 20vh, 180px);
+        gap: 0.85rem;
       }
       .stream-col {
-        font-size: clamp(1.15rem, 3.8vw, 1.45rem);
-        min-width: 28px;
+        font-size: clamp(1rem, 3.5vw, 1.35rem);
+        min-width: 24px;
+      }
+      .preload-code-box {
+        max-width: 100%;
+        overflow-x: auto;
       }
       .preload-code {
-        font-size: clamp(0.85rem, 3.8vw, 1.15rem);
-        line-height: 1.6;
+        font-size: clamp(0.72rem, 3.4vw, 1rem);
+        line-height: 1.55;
       }
       .preload-skip {
-        bottom: 1rem;
-        right: 1rem;
+        bottom: 0.85rem;
+        right: 0.85rem;
+        padding: 0.3rem 0.75rem;
+        font-size: 0.68rem;
+      }
+    }
+
+    @media (max-height: 640px) and (max-width: 768px) {
+      .preload-streams {
+        display: none;
       }
     }
 
