@@ -130,7 +130,9 @@ export const PORTFOLIO = {
     items: [
       { title: "Hour of code session", issuer: "SmartCT / ", year: "2025", image: "/ARA.jpg" },
       { title: "Ethical Hacking and Responsible Disclosure", issuer: "West Visayas State University", year: "2025", image: "/WVSU.jpg" },
-      { title: "Company Proposal and System Showcase", issuer: "PHINMA - Saint Jude College Manila", year: "2024", image: "/CPSS.jpg" }
+      { title: "Company Proposal and System Showcase", issuer: "PHINMA - Saint Jude College Manila", year: "2024", image: "/CPSS.jpg" },
+      { title: "3rd Place in Outstanding Systems", issuer: "PHINMA - Saint Jude College Manila", year: "2024", image: "/gapk.jpg" }
+
     ]
   },
 
